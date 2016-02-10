@@ -1,0 +1,54 @@
+<head>
+	<title>Leaderboard</title>
+</head>
+<body>
+	<h1>Leaderboard</h1>
+ 
+<!--To make the “leaderboard” template appear inside the browser, place this tag between the body
+takes inside the HTML file:-->
+
+<!--including this “loginButtons” template, which is included with the “accounts-ui”  package.-->
+ {{>loginButtons}}<br>
+{{>leaderboard}} <br>
+{{>addPlayerForm}}
+</body>
+<!--This is because, by default, templates don’t appear inside the interface coz of their dynamic use or not  static like html-->
+<template name = "leaderboard">
+  <!--using helpers..
+ {{player}} 
+ notice that we’re not using the greater-than symbol coz we r just referencing name of player function-->
+<!-- displaying the array data.... loop thru data-->
+<!--helper is returning an array of all the documents  from inside the collection-->
+<ul>
+   {{#each player}}
+     <!--  <li> {{name}} : {{score}} </li>-->
+     <li class = "player {{selectedClass}}">{{name}} : {{score}}</li>
+     <!--we’ve made is so the event will only trigger when the user clicks on an element that has the .player class attached to it.  -->
+     <!--The “selected” class will be applied to each .player element, thereby changing the backgroundcolor of each element to yellow: -->
+   {{/each}}
+</ul>
+<!--<li>Selected Player : {{showSelectedPlayer}}</li>-->
+<!--the output won’t look quite right, and that’s because the findOne function is 
+     retrieving the player’s entire document. to fix this..value of the name field -->
+     <li>Selected Player : {{showSelectedPlayer.name}}: {{showSelectedPlayer.score}}</li>
+     <!--diplay the buttons if player has been selected-->
+     {{#if showSelectedPlayer}}
+<!--Give 5 points button-->
+ <input type="button" class="increment" value="Give 5 Points"><br><br>
+ <!--create a “Take 5 Points” button -->
+ <input type="button" class="decrement" value="Penalize 5 Points"><br><br>
+  <input type = "button" class="remove" value="Remove PLayer"><br>
+      {{/if}}
+
+<!--{{otherHelperFunction}}-->
+</template>
+<!--creating form templates-->
+<template name = "addPlayerForm">
+<!--unregistered users  must not  see the “Add Player” form.. only logged in users-->
+ {{#if currentUser}} 
+ <form>
+   <input type="text" name = "playerName"> 
+   <input type="submit" value = "Add Player"> 
+ </form>
+ {{/if}} 
+</template>

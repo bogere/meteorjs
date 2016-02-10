@@ -1,0 +1,8 @@
+/* CSS declarations go here */
+
+/*change the background color when the player selected */
+.selected{
+
+background-color:green;
+
+}
